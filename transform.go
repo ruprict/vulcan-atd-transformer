@@ -9,7 +9,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/codegangsta/cli"
@@ -81,12 +80,15 @@ func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		1,
 	}
 	payload := inventorySoap(params)
-	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(payload)))
 	if err != nil {
 		log.Fatal("Request failed: ", err)
 		return
 	}
+	req.Header.Add("Content-Type", "application/xml; charset=utf-8")
 	client := &http.Client{}
+
+	fmt.Println("Posting: ", payload)
 
 	resp, err := client.Do(req)
 	if err != nil {
