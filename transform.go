@@ -2,6 +2,7 @@ package transform
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -35,6 +36,7 @@ type InventoryResponse struct {
 
 func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	json, _ := json.Marshal(InventoryResponse{4, time.Now()})
+	fmt.Println("*** atd_transformer middleware ***")
 	w.Write(json)
 	return
 }
