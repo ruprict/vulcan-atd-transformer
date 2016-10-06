@@ -98,6 +98,8 @@ func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer resp.Body.Close()
 	var result TestResponse
 
+	fmt.Println("**response ", resp.Body)
+
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		log.Println(err)
 	}
