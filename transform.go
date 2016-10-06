@@ -30,8 +30,8 @@ func GetSpec() *plugin.MiddlewareSpec {
 type TestResponse struct {
 	UserId int    `json:"userId"`
 	Id     int    `json:"id"`
-	title  string `json:"title"`
-	body   string `json:"body"`
+	Title  string `json:"title"`
+	Body   string `json:"body"`
 }
 
 type TransformMiddleware struct {
