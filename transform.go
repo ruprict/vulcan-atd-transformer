@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -24,6 +25,13 @@ func GetSpec() *plugin.MiddlewareSpec {
 		FromCli:   FromCli,
 		CliFlags:  CliFlags(),
 	}
+}
+
+type TestResponse struct {
+	UserId int    `json:"userId"`
+	Id     int    `json:"id"`
+	title  string `json:"title"`
+	body   string `json:"body"`
 }
 
 type TransformMiddleware struct {
@@ -63,12 +71,32 @@ func (b *bufferWriter) WriteHeader(code int) {
 }
 
 func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	json, _ := json.Marshal(InventoryResponse{4, time.Now()})
+	url := "https://jsonplaceholder.typicode.com/posts/1"
 	fmt.Println("*** atd_transformer middleware ***")
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		log.Fatal("Request failed: ", err)
+		return
+	}
+	client := &http.Client{}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Fatal("Do: ", err)
+		return
+	}
+	defer resp.Body.Close()
+	var result TestResponse
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		log.Println(err)
+	}
+
+	jsonR, _ := json.Marshal(result)
 
 	bw := &bufferWriter{header: make(http.Header), buffer: &bytes.Buffer{}}
 	newBody := bytes.NewBufferString("")
-	if err := applyString(string(json), newBody, r); err != nil {
+	if err := applyString(string(jsonR), newBody, r); err != nil {
 		fmt.Errorf("can't write bddy")
 		return
 	}
