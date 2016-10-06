@@ -1,0 +1,38 @@
+hash: d7c7583d24244db3d3be1995fa05b71708572029a45859ce558b7b3db807dbcc
+updated: 2016-10-05T16:20:59.943216239-04:00
+imports:
+- name: github.com/codegangsta/cli
+  version: a14d7d367bc02b1f57d88de97926727f2d936387
+- name: github.com/Sirupsen/logrus
+  version: f3cfb454f4c209e6668c95216c4744b8fddb2356
+  subpackages:
+  - hooks/syslog
+- name: github.com/vulcand/oxy
+  version: ecfb10010e7aa51f244b35b8f6e09abef5494f4b
+  subpackages:
+  - buffer
+  - cbreaker
+  - connlimit
+  - forward
+  - memmetrics
+  - ratelimit
+  - roundrobin
+  - stream
+  - testutils
+  - trace
+  - utils
+- name: github.com/vulcand/predicate
+  version: 19b9dde14240d94c804ae5736ad0e1de10bf8fe6
+- name: github.com/vulcand/route
+  version: cb89d787ddbb1c5849a7ac9f79004c1fd12a4a32
+- name: github.com/vulcand/vulcand
+  version: bed092e10989250b48bdb6aa3b0557b207f05c80
+  subpackages:
+  - conntracker
+  - plugin
+  - router
+- name: golang.org/x/sys
+  version: 62bee037599929a6e9146f29d10dd5208c43507d
+  subpackages:
+  - unix
+testImports: []

@@ -1,0 +1,7 @@
+package: github.com/atd/vulcand-atd-transformer
+import:
+- package: github.com/vulcand/vulcand
+  subpackages:
+  - plugin
+- package: github.com/codegangsta/cli
+  version: ^1.18.1
