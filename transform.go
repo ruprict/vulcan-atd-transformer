@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/codegangsta/cli"
@@ -71,9 +72,16 @@ func (b *bufferWriter) WriteHeader(code int) {
 }
 
 func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	url := "https://jsonplaceholder.typicode.com/posts/1"
+	url := "https://api.atdconnect.com/ws/v1_3/InventoryInquiry.php"
 	fmt.Println("*** atd_transformer middleware ***")
-	req, err := http.NewRequest("GET", url, nil)
+	params := InventoryRequestParams{
+		"00002",
+		"SKOOKUM",
+		"03546830000",
+		1,
+	}
+	payload := inventorySoap(params)
+	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
 	if err != nil {
 		log.Fatal("Request failed: ", err)
 		return
