@@ -3,13 +3,13 @@ package transform
 import (
 	"bytes"
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/codegangsta/cli"
 	"github.com/vulcand/oxy/utils"
@@ -40,11 +40,6 @@ type TransformMiddleware struct {
 type TransformHandler struct {
 	config TransformMiddleware
 	next   http.Handler
-}
-
-type InventoryResponse struct {
-	Quantity              int
-	EstimatedDeliveryDate time.Time
 }
 
 type bufferWriter struct {
@@ -96,11 +91,11 @@ func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer resp.Body.Close()
-	var result TestResponse
+	var result InventoryResponse
 
 	fmt.Println("**response ", resp.Body)
 
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+	if err := xml.NewDecoder(resp.Body).Decode(&result); err != nil {
 		log.Println(err)
 	}
 
