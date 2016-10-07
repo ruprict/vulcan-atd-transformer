@@ -70,7 +70,7 @@ type InventoryStatusResponse struct {
 }
 
 type InventoryStatus struct {
-	XMLName          xml.Name `xml:"InventoryStatus"`
+	XMLName          xml.Name `xml:"InventoryStatus" json:"-"`
 	InStock          int      `xml:"InStock"`
 	EstDeliveryDate  string   `xml:"EstDeliveryDate"`
 	EstDeliveryTime  string   `xml:"EstDeliveryTime"`
