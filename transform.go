@@ -99,7 +99,7 @@ func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	jsonR, _ := json.Marshal(result)
+	jsonR, _ := json.Marshal(result.Soap.Response.Result.Diffgram.InventoryStatusResponse.InventoryStatus)
 
 	bw := &bufferWriter{header: make(http.Header), buffer: &bytes.Buffer{}}
 	newBody := bytes.NewBufferString("")
