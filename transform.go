@@ -69,9 +69,9 @@ func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	url := "https://api.atdconnect.com/ws/v1_3/InventoryInquiry.php"
 	fmt.Println("*** atd_transformer middleware ***")
 	params := InventoryRequestParams{
-		"00002",
-		"SKOOKUM",
-		"03546830000",
+		"08371",
+		"Hankook",
+		"1006123",
 		1,
 	}
 	payload := inventorySoap(params)
