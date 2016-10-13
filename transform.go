@@ -66,7 +66,7 @@ func (b *bufferWriter) WriteHeader(code int) {
 }
 
 func (h *TransformHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	url := "hhttps://api.atdconnect.com/ws/v1_3/InventoryInquiry.php"
+	url := "https://api.atdconnect.com/ws/v1_3/InventoryInquiry.php"
 	fmt.Println("*** atd_transformer middleware ***")
 	params := InventoryRequestParams{
 		"08371",
